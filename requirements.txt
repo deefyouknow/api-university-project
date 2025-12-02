@@ -56,3 +56,4 @@ uvicorn
 fastapi
 asyncpg
 dotenv
+sqlalchemy
