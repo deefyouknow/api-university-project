@@ -57,3 +57,7 @@ fastapi
 asyncpg
 dotenv
 sqlalchemy
+pydantic[email]
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
