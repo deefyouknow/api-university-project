@@ -3,8 +3,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select # พระเอกของ Async ORM
 from src.database import get_db
 from src.models import models, schemas
-from google.oauth2 import id_token
-from google.auth.transport import requests
+try:
+    from google.oauth2 import id_token
+    from google.auth.transport import requests
+except ImportError:
+    print("Please install google-auth and google-auth-oauthlib.  pip install google-auth google-auth-oauthlib")
 import asyncio # ใช้สำหรับแก้ Blocking ของ Google Verify
 from dotenv import load_dotenv
 import os
@@ -56,7 +59,7 @@ async def google_login(
             user.name = name
             user.picture = picture
             user.google_raw_data = idinfo
-            
+
             await db.commit()
             await db.refresh(user)
 
