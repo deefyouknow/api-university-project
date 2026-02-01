@@ -32,3 +32,7 @@ async def add_user_info(u:Add_user_info, db: AsyncSession = Depends(get_db)):
 @routers.get("/health")
 async def health_check():
     return {"status": "ok"}
+
+@routers.get("/heah")
+async def health_check():
+    return {"status": "ok"}
