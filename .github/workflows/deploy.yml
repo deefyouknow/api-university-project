@@ -55,7 +55,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 6864
           script: |
-            cd /srv/api
+            cd /home/dserver/share_folder/application/fastapi/api-project
             # กำหนดชื่อ Image ให้ตรงกับที่ Build มา
             export GITHUB_REPOSITORY="${{ github.repository }}"
             export REPO_LOWER="${GITHUB_REPOSITORY,,}"
