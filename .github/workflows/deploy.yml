@@ -32,8 +32,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: true          
           tags: ghcr.io/${{ env.REPO_LOWER }}:latest
+          no-cache: true
 
       # 5. ส่งไฟล์ docker-compose ไป Server
       - name: Copy file
