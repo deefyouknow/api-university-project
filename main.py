@@ -47,3 +47,7 @@ app.include_router(crud.routers)
 
 from src.routers.ui import credentail
 app.include_router(credentail.router)
+
+@app.get("/test")
+async def test():
+    return {"message": "Hello World"}
