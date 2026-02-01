@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  api:
+    # build: . # ใช้สำหรับปกติ
+    image: ghcr.io/deefyouknow/api-university-project:latest # ใช้สำหรับ Docker Hub
+    #ghcr.io คือ GitHub Container Registry 
+    container_name: fastapi_app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    # command: uvicorn main:app --host 0.0.0.0 --port 8000
+    restart: always
+    networks:
+      - app_net
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared_tunnel
+    restart: always
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
+    networks:
+      - app_net
+
+networks:
+  app_net:
