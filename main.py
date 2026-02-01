@@ -38,6 +38,10 @@ async def get_open_api_endpoint(username: str = Depends(secure.verify)):
         #test
     )
 
+@router.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 # ======================================
 # all import router
 # ======================================
@@ -47,7 +51,3 @@ app.include_router(crud.routers)
 
 from src.routers.ui import credentail
 app.include_router(credentail.router)
-
-@app.get("/test")
-async def test():
-    return {"message": "Hello World"}
