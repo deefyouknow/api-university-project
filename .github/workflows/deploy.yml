@@ -42,9 +42,12 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 6864  # เช็คด้วยนะครับว่าพอร์ต SSH คือ 6864 จริงไหม (ถ้าปกติคือ 22)
+          port: 6864
           source: "docker-compose.yml"
-          target: "/srv/api"
+          # -------------------------------------------------------
+          # ⚠️ แก้ตรงนี้ครับ: ต้องส่งไปที่ใหม่ ให้ตรงกับข้างล่าง
+          # -------------------------------------------------------
+          target: "/home/dserver/share_folder/application/fastapi/api-project"
 
       # 6. สั่งรันบน Server
       - name: Run Docker
@@ -55,14 +58,18 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 6864
           script: |
+            # -------------------------------------------------------
+            # ✅ ตรงนี้ถูกต้องแล้วครับ cd เข้าไปที่ใหม่
+            # -------------------------------------------------------
             cd /home/dserver/share_folder/application/fastapi/api-project
-            # กำหนดชื่อ Image ให้ตรงกับที่ Build มา
+            
+            # กำหนดชื่อ Image 
             export GITHUB_REPOSITORY="${{ github.repository }}"
             export REPO_LOWER="${GITHUB_REPOSITORY,,}"
             
             # ดึง Image ล่าสุดมา
             docker compose pull
-            # รันใหม่ (จะใช้ .env ที่เราสร้างไว้ใน Server เอง)
-            docker compose up -d
+            # รันใหม่ 
+            docker compose up -d --force-recreate --remove-orphans
             # ลบ Image เก่าทิ้ง
             docker image prune -f
