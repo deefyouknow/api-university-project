@@ -28,3 +28,7 @@ async def add_user_info(u:Add_user_info, db: AsyncSession = Depends(get_db)):
     await db.commit()
     await db.refresh(user_info)
     return user_info
+
+@routers.get("/health")
+async def health_check():
+    return {"status": "ok"}

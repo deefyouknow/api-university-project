@@ -38,10 +38,6 @@ async def get_open_api_endpoint(username: str = Depends(secure.verify)):
         #test
     )
 
-@router.get("/health")
-async def health_check():
-    return {"status": "ok"}
-
 # ======================================
 # all import router
 # ======================================
