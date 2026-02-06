@@ -36,3 +36,7 @@ async def health_check():
 @routers.get("/xxxxx")
 async def health_check():
     return {"status": "ok"}
+
+@routers.get("/asdsaklhfjklsdjk")
+async def health_check():
+    return {"status": "ok"}
